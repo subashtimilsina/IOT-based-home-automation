@@ -23,7 +23,6 @@ fclose($handle);
 		else
 		{x=1;}
 		window.location='button.php?data1='+x+'&data2='+y
-		
 	}
 	
 	function submit2()
@@ -53,21 +52,31 @@ $Data2 = (int)($data11 % 10);
 <h1><b><pre>Home Automation</pre></b></h1>
 <br><br>
 
-<button onclick = "submit1();" value = "LAMP" style = "border-radius:15px; width:300px; height: 100px; background-color:<?php
+<button id="12" class="led" onclick = "submit1();" value = "LAMP" style = "border-radius:15px; width:300px; height: 100px; background-color:<?php
 if($Data1==0)
 	echo "RED";
 else
 	echo "GREEN";
 ?>;"><h1 style = "color:white">LAMP</h1></button>
-<button onclick = "submit2();" value = "FAN" style = "border-radius:15px; width:300px; height: 100px; background-color: <?php
+<button id="13" class="led" onclick = "submit2();" value = "FAN" style = "border-radius:15px; width:300px; height: 100px; background-color: <?php
 if($Data2==0)
 	echo "RED";
 else
 	echo "GREEN";
 ?> ;"><h1 style = "color:white">FAN</h1></button>
 
+
 <br><br>
 
+<script src="jquery.min.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".led").click(function(){
+    var p = $(this).attr('id');                                                               
+    $.get("http://192.168.137.41:80/", {pin:p}); 
+  });
+});
+</script>
 
 
 </body>

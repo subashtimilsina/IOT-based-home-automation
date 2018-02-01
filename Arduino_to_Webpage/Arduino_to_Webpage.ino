@@ -8,12 +8,10 @@ String password = "bastain123";
 void setup() 
 {
   Serial.begin(115200);   
-  pinMode(11,OUTPUT);   
-  digitalWrite(11,LOW); 
-  pinMode(12,OUTPUT);   
-  digitalWrite(12,LOW); 
-  pinMode(13,OUTPUT);   
-  digitalWrite(13,LOW); 
+  pinMode(4,OUTPUT);   
+  digitalWrite(4,LOW); 
+  pinMode(5,OUTPUT);   
+  digitalWrite(5,LOW); 
   sendData("AT+RST\r\n",2000,DEBUG);
   String cmd = "AT+CWJAP=\"" +ssid+"\",\"" + password + "\"\r\n";
    sendData(cmd,7000,DEBUG);
@@ -32,7 +30,11 @@ void loop()
       int connectionId = Serial.read()-48;   
       Serial.find("pin=");                   
       int pinNumber = (Serial.read()-48)*10; 
-      pinNumber += (Serial.read()-48);       
+      pinNumber += (Serial.read()-48);
+      if (pinNumber == 13)
+        pinNumber = 5;
+      else if (pinNumber == 12)
+        pinNumber = 4;       
       digitalWrite(pinNumber, !digitalRead(pinNumber)); 
       
       String closeCommand = "AT+CIPCLOSE="; 

@@ -1,6 +1,14 @@
 
 #define DEBUG true
 
+int pin1 =A0;
+int pin2 =A1;
+int pin3 =A2;
+int pin4 =A3;
+int pin5 =A4;
+int pin6 =A5;
+int pin7 =12;
+int pin8 =13;
 
 String ssid = "Subash's Wifi";
 String password = "bastain123";
@@ -8,10 +16,22 @@ String password = "bastain123";
 void setup() 
 {
   Serial.begin(115200);   
-  pinMode(4,OUTPUT);   
-  digitalWrite(4,LOW); 
-  pinMode(5,OUTPUT);   
-  digitalWrite(5,LOW); 
+  pinMode(pin1,OUTPUT);   
+  digitalWrite(pin1,LOW); 
+  pinMode(pin2,OUTPUT);   
+  digitalWrite(pin2,LOW); 
+  pinMode(pin3,OUTPUT);   
+  digitalWrite(pin3,LOW); 
+  pinMode(pin4,OUTPUT);   
+  digitalWrite(pin4,LOW);
+  pinMode(pin5,OUTPUT);   
+  digitalWrite(pin5,LOW);
+  pinMode(pin6,OUTPUT);   
+  digitalWrite(pin6,LOW);
+  pinMode(pin7,OUTPUT);   
+  digitalWrite(pin7,LOW);
+  pinMode(pin8,OUTPUT);   
+  digitalWrite(pin8,LOW);
   sendData("AT+RST\r\n",2000,DEBUG);
   String cmd = "AT+CWJAP=\"" +ssid+"\",\"" + password + "\"\r\n";
    sendData(cmd,7000,DEBUG);
@@ -29,12 +49,22 @@ void loop()
       delay(1000);       
       int connectionId = Serial.read()-48;   
       Serial.find("pin=");                   
-      int pinNumber = (Serial.read()-48)*10; 
-      pinNumber += (Serial.read()-48);
-      if (pinNumber == 13)
-        pinNumber = 5;
-      else if (pinNumber == 12)
-        pinNumber = 4;       
+      int pinNumber = (Serial.read()-48)*10;   
+      pinNumber += (Serial.read()-48);  
+        
+     if (pinNumber == 14)
+       pinNumber = A0;
+      else if (pinNumber == 15)
+        pinNumber = A1;
+       else if (pinNumber == 16)
+       pinNumber = A2;
+       else if (pinNumber == 17)
+       pinNumber = A3;
+        else if (pinNumber == 18)
+       pinNumber = A4;
+        else if (pinNumber == 19)
+       pinNumber = A5;
+             
       digitalWrite(pinNumber, !digitalRead(pinNumber)); 
       
       String closeCommand = "AT+CIPCLOSE="; 

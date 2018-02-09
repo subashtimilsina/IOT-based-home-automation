@@ -64,7 +64,7 @@ void loop()
        pinNumber = A4;
         else if (pinNumber == 19)
        pinNumber = A5;
-             
+      
       digitalWrite(pinNumber, !digitalRead(pinNumber)); 
       
       String closeCommand = "AT+CIPCLOSE="; 
